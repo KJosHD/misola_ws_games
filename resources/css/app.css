@@ -14,9 +14,86 @@
     display: flex;
     justify-content: space-around;
     background-color: aqua;
+    padding: 10px;
+    box-shadow: 0 -6px 10px rgba(0,0,0,0.2), 0 6px 10px rgba(0,0,0,0.2);
+}
+
+.nav h1 {
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .nav ul {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    gap: 50px;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+}
+
+.au-h2 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 28px;
+}
+
+.au-table {
+    margin: 30px auto;       /* Centers the table horizontally */
+    width: 70%;              /* Adjust width as needed */
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.au-table th,
+.au-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.au-table thead {
+    background: #f5f5f5;
+}
+
+/* GAMES */
+
+.g-h2 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 28px;
+}
+
+.g-table {
+    margin: 30px auto;       /* Centers the table horizontally */
+    width: 70%;              /* Adjust width as needed */
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.g-table th,
+.g-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.g-table thead {
+    background: #f5f5f5;
 }

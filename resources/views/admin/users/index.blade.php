@@ -1,5 +1,8 @@
-<x-layout>
-    <h2 class="au-h2">Admin Users</h2>
+<x-layout> 
+    <x-slot:subtitle>
+        Platform users
+    </x-slot:subtitle>
+    <h2 class="au-h2">Platform users</h2>
     <table class="au-table">
         <thead>
             <tr>
@@ -18,4 +21,4 @@
             @endforeach
         </tbody>
     </table>
-</x-layout> 
+</x-layout>
