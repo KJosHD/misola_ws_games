@@ -27,3 +27,4 @@ Route::get('/admin/users/{username}', function ($username) {
     return "<h1>$username</h1>";
 });
 
+Route::get('/user/{user}', [UserController::class,'show']);
