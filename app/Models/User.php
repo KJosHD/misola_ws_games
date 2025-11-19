@@ -49,4 +49,47 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function games()
+    {
+        return $this->hasMany(Game::class, 'author_id');
+    }
+
+    public function scores()
+    {
+        return $this->hasMany(Score::class);
+    }
+
+    public function playedGames()
+    {
+        return $this->belongsToMany(Game::class, 'scores');
+    }
+
+    public function isAdmin()
+    {
+        return $this->hasOne(Admin::class);
+    }
+    
+    public function isAuthorOf(Game $game)
+    {
+        return $this->id === $game->author_id;
+    }
+
+    public function isBlocked()
+    {
+        return $this->is_blocked;
+    }
+
+    public function block()
+    {
+        $this->is_blocked = true;
+        $this->save();
+    }
+
+    public function unblock()
+    {
+        $this->is_blocked = false;
+        $this->save();  
+    }
+    
 }

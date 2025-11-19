@@ -9,6 +9,7 @@
                 <th>Username</th>
                 <th>Created at</th>
                 <th>Last Login</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -17,6 +18,7 @@
                     <td>{{ $user -> username }}</td>
                     <td>{{ $user -> created_at }}</td>
                     <td>{{ $user -> last_login }}</td>
+                    <td><a href="{{ url('admin/users/' . $user->username) }}">View Profile</a></td>
                 </tr>
             @endforeach
         </tbody>
