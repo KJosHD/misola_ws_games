@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Game; 
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -13,8 +14,8 @@ class AdminController extends Controller
     }
 
     public function users(){
-        $admin_users = Admin::all();
-        return view('admin.users.index', compact('admin_users'));
+    $users = User::all();
+    return view('admin.users.index', compact('users'));
     }
 
     public function games(){

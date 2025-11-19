@@ -12,11 +12,11 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($admin_users as $adminUser)
+            @foreach ($users as $user)
                 <tr>
-                    <td>{{ $adminUser -> username }}</td>
-                    <td>{{ $adminUser -> created_at }}</td>
-                    <td>{{ $adminUser -> last_login }}</td>
+                    <td>{{ $user -> username }}</td>
+                    <td>{{ $user -> created_at }}</td>
+                    <td>{{ $user -> last_login }}</td>
                 </tr>
             @endforeach
         </tbody>
