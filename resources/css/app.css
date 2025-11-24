@@ -104,3 +104,26 @@ footer {
 .g-table thead {
     background: #f5f5f5;
 }
+
+.h2-user{
+    display: flex;
+    justify-content: center;
+}
+
+.h3-user{
+    display:flex;
+    justify-content: center;
+}
+
+.user-about {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container-user {
+    display: flex;
+    justify-content: center;
+    background-color: aquamarine;
+}

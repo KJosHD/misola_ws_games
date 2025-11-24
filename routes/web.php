@@ -35,3 +35,7 @@ Route::get('/user/{user}', [UserController::class,'show']);
 Route::get('test', function () {
     return User::find(1)->scores;
 });
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('games', \App\Http\Controllers\GameController::class);
+});

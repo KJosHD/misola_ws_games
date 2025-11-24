@@ -3,6 +3,9 @@
         Games
     </x-slot:subtitle>
     <h2 class="g-h2">Games</h2>
+    <form method="GET" action={{ url('admin/games')}}>
+
+    </form>
     <table class="g-table">
         <thead>
             <tr>
@@ -10,6 +13,7 @@
                 <th>Description</th>
                 <th>Author ID</th>
                 <th>Created at</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -23,5 +27,5 @@
             @endforeach
         </tbody>
     </table>
-    <p>test</p>
+
 </x-layout>

@@ -36,6 +36,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+    
 
     /**
      * Get the attributes that should be cast.
@@ -62,7 +63,12 @@ class User extends Authenticatable
 
     public function playedGames()
     {
-        return $this->belongsToMany(Game::class, 'scores');
+        return $this->belongsToMany(Game::class, 'scores')->withPivot('id','score','timestamp')->whereIn('scores.id',function($query){
+            $query->selectRaw('MAX(id)')
+                ->from('scores')
+                ->where('user_id',$this->id)
+                ->groupBy('game_id');
+        });
     }
 
     public function isAdmin()
