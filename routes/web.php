@@ -37,3 +37,8 @@ Route::get('test', function () {
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('games', \App\Http\Controllers\GameController::class);
 });
+
+// block user
+Route::put('/admin/users/{user}/block', [UserController::class, 'block']);
+// unblock user
+Route::put('/admin/users/{user}/unblock', [UserController::class, 'unblock']);

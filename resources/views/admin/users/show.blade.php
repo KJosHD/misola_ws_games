@@ -11,9 +11,37 @@
                 <p><strong>Email:</strong> {{ $user->email }}</p>
                 <p><strong>Registered on:</strong> {{ $user->created_at->format('F d, Y') }}</p>
                 <p><strong>Last login:</strong> {{ $user->last_login_at ? $user->last_login_at->format('F d, Y H:i') : 'Never' }}</p>
-                <div class="user-actions">
-                    <button class="block-btn">Block User</button>
-                </div>
+
+                @if(!$user->is_blocked)
+                    <button class="block-btn" onclick="document.querySelector('dialog').showModal()">Block User</button>
+                @else
+                    <form action={{ url('/admin/users/'.$user->username.'/unblock') }} method="POST">
+                        @csrf
+                        @method('PUT')
+                        <button class="unblock-btn">Unblock User</button>
+                    </form>
+                @endif
+                
+                <!-- Block User Modal -->
+                <dialog>
+                    <form action="{{ url('admin/users/' . $user->username . '/block') }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-body">
+                            <label>Reason for Blocking</label><br>
+                            <select name="block_reason" required>
+                                <option>You have been blocked by an administrator.</option>
+                                <option>You have been blocked for spamming.</option>
+                                <option>You have been blocked for cheating</option>
+                            </select>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn" onclick="document.querySelector('dialog').close()">Cancel</button>
+                            <button type="submit" class="btn btn-danger">Block User</button>
+                        </div>
+                    </form>
+                </dialog>
             </div>
         </div>
     </div>
