@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Score extends Model
 {
     // relationship with game
-    public function game(): HasMany
+    public function game(): BelongsTo
     {
-        return $this->hasMany(Game::class);
+        return $this->belongsTo(Game::class);
     }
 
     // relationship with user

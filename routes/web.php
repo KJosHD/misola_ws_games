@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\GamesController;
+use App\Http\Controllers\GameController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
@@ -19,9 +19,7 @@ Route::get('/admin/games', [AdminController::class,'games']);
 
 Route::get('/admin/users', [AdminController::class,'users']);
 
-Route::get('/admin/games/{slug}', function ($game) {
-    return "<h1>$game</h1>";
-});
+Route::get('/admin/games/{game:slug}', [GameController::class,'show']);
 
 // block users
 

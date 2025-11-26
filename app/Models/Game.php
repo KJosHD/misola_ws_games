@@ -7,9 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {
-    protected $fillable = ['title', 'description', 'author_id'];
+    protected $fillable = ['title', 'description', 'author_id', 'slug'];
 
     # use SoftDeletes;
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     public function author()
     {

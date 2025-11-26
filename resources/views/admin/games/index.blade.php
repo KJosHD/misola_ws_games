@@ -23,6 +23,7 @@
                     <td>{{ $gameList -> description }}</td>
                     <td>{{ $gameList -> author_id }}</td>
                     <td>{{ $gameList -> created_at }}</td>
+                    <td class="action"><a href={{ url('admin/games/'. $gameList->slug) }}>View Game</a></td>
                 </tr>
             @endforeach
         </tbody>

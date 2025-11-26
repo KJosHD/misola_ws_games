@@ -11,6 +11,9 @@
                 <p><strong>Email:</strong> {{ $user->email }}</p>
                 <p><strong>Registered on:</strong> {{ $user->created_at->format('F d, Y') }}</p>
                 <p><strong>Last login:</strong> {{ $user->last_login_at ? $user->last_login_at->format('F d, Y H:i') : 'Never' }}</p>
+                <div class="user-actions">
+                    <button class="block-btn">Block User</button>
+                </div>
             </div>
         </div>
     </div>
