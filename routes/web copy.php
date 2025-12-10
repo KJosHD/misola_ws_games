@@ -8,25 +8,6 @@ use App\Models\User;
 use App\Models\Admin;
 use App\Models\Game;
 use App\Models\Score;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\AdminAuthController;
-use Illuminate\Support\Facades\Auth;
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-require __DIR__.'/auth.php';
 
 Route::get('/', function () {
     return view('welcome');
@@ -61,13 +42,3 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::put('/admin/users/{user}/block', [UserController::class, 'block']);
 // unblock user
 Route::put('/admin/users/{user}/unblock', [UserController::class, 'unblock']);
-
-// admin login form
-Route::get('/admin/login', function(){
-return view('admin.auth.login');
-});
-// admin ACTUAL login
-Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login');
-
-// admin logout
-Route::post('/admin/logout', [AdminAuthController::class, 'logout']);
