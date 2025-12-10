@@ -24,8 +24,7 @@
 
 .nav ul li:hover{
     color: #2b6cb0;
-    font-size: 18px;
-    text-decoration: underline;
+    font-size: 17px;
 }
 
 html, body {

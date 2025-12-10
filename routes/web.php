@@ -1,26 +1,22 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\GameController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
-use App\Models\User;
-use App\Models\Admin;
-use App\Models\Game;
-use App\Models\Score;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\GameController;
 use App\Http\Controllers\AdminAuthController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
+use App\Models\Game;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        $games = Game::with(['author', 'scores'])->get();
+        return view('dashboard', compact('games'));
+    })->middleware('auth')->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -28,46 +24,35 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware('guest:admin')->group(function () {
+    Route::get('/admin/login', function () {
+        return view('admin.auth.login');
+    })->name('admin.login');
+
+    Route::post('/admin/login', [AdminAuthController::class, 'login']);
+
+    Route::get('/admin/login', function(){
+        return view('admin.auth.login');
+    })->name('admin.login');
 });
 
-Route::get('/admin', [AdminController::class,'index']);
+Route::middleware('auth:admin')->group(function () {
 
-Route::get('/admin/games', [AdminController::class,'games']);
+    // Admin dashboard
+    Route::get('/admin', [AdminController::class, 'index']);
 
-Route::get('/admin/users', [AdminController::class,'users']);
+    // Platform users
+    Route::get('/admin/users', [UserController::class, 'index']);
+    Route::get('/admin/users/{user}', [UserController::class, 'show']);
+    Route::put('/admin/users/{user}/block', [UserController::class, 'block']);
+    Route::put('/admin/users/{user}/unblock', [UserController::class, 'unblock']);
 
-Route::get('/admin/games/{game:slug}', [GameController::class,'show']);
+    // Games
+    Route::get('/admin/games', [GameController::class, 'index']);
+    Route::get('/admin/games/{game}', [GameController::class, 'show']);
+    Route::delete('/admin/games/{game}', [GameController::class, 'destroy']);
 
-// block users
-
-Route::get('/admin/users/{username}', function ($username) { 
-    $user = User::where('username', $username)->firstOrFail();
-    return view('admin.users.show', compact('user'));
+    // Admin logout
+    Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 });
 
-Route::get('/user/{user}', [UserController::class,'show']);
-
-Route::get('test', function () {
-    return User::find(1)->scores;
-});
-
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::resource('games', \App\Http\Controllers\GameController::class);
-});
-
-// block user
-Route::put('/admin/users/{user}/block', [UserController::class, 'block']);
-// unblock user
-Route::put('/admin/users/{user}/unblock', [UserController::class, 'unblock']);
-
-// admin login form
-Route::get('/admin/login', function(){
-return view('admin.auth.login');
-});
-// admin ACTUAL login
-Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login');
-
-// admin logout
-Route::post('/admin/logout', [AdminAuthController::class, 'logout']);
